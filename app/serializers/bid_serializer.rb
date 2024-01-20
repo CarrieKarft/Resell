@@ -1,3 +1,3 @@
 class BidSerializer < ActiveModel::Serializer
-  attributes :id, :bid_amount, :bid, :user_id, :product_id
+  attributes :id, :bid_amount, :product_id, :bid_accepted
 end
