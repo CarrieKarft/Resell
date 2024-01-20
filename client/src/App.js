@@ -7,6 +7,7 @@ import SignupPage from './components/SignupPage';
 import NavBar from './components/NavBar';
 import CurrentUserBids from './components/CurrentUserBids';
 import ViewProduct from './components/ViewProduct';
+import UserProfile from './components/UserProfile';
 
 
 
@@ -31,6 +32,14 @@ function App() {
     }
   })
   }
+
+  function onHandleLogout() {
+    fetch("/logout", {
+      method: "DELETE",
+    }).then(() => setCurrentUser(null));
+  }
+
+  
   
   function onHandleCreateProduct(newProdObj) {
     // console.log(data)
@@ -56,6 +65,7 @@ function App() {
   return (
     <div className="App">\
       <SignupPage />
+      <UserProfile onHandleLogout={onHandleLogout}/>
       <ProductsPage />
       <NewProductForm onHandleCreateProduct={onHandleCreateProduct}/>
     </div>
