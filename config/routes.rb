@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :bids
   resources :comments
   resources :products
-  resources :users
+  resources :users, except: [:show, :create]
+  post '/signup', to: "users#create"
+  get '/me', to: "users#show"
   delete '/logout', to: "sessions#destroy"
   post '/login', to: "sessions#create"
   # Routing logic: fallback requests for React Router.
