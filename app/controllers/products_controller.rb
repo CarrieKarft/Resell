@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-    # skip_before_action :authorize
+
     def show
         product = Product.find(params[:id])
         render json: product, status: 200
