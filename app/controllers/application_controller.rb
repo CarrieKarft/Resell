@@ -3,6 +3,8 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   include ActionController::Cookies
 
+  before_action :authorize
+
   private
 
   def find_user
