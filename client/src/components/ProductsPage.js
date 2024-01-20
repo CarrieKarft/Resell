@@ -1,12 +1,14 @@
 import React, {useContext} from "react";
 import {ProductsContext} from '../context/ProductsContext'
-import Product from "./Product";
+import ProductCard from "./ProductCard";
+import SearchBar from "./SearchBar";
+
 
 function ProductsPage({}){
     const {products} = useContext(ProductsContext);
     console.log(products)
 
-    const mappingProducts = products.map(prod => <Product key={prod.id} prod={prod}/>)
+    const mappingProducts = products.map(prod => <ProductCard key={prod.id} prod={prod}/>)
     return (
         <div>
             <h1>Products Page</h1>
