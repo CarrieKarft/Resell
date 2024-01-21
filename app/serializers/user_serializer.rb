@@ -3,5 +3,5 @@ class UserSerializer < ActiveModel::Serializer
 
   # has_many :comments
   has_many :bids
-  # has_many :products
+  has_many :products
 end
