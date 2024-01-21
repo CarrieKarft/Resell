@@ -15,9 +15,17 @@ class ProductsController < ApplicationController
         render json: product, status: :created
     end
 
+    # /search-products/Practical Wooden Bottle is how url needs to be formatted for this to work
+    def search_products
+        byebug
+        product = Product.find_by(product_name: params[:product_name])
+        render json: product
+        # need to fine tune this so spelling doesnt need to be exact,and returns multiple options of similarly named products
+    end
+
     private
 
     def product_params
-        params.permit(:minimum_price, :description, :image)
+        params.permit(:minimum_price, :description, :image, :product_name)
     end
 end
