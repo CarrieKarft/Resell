@@ -15,7 +15,7 @@ function App() {
   const {setProducts} = useContext(ProductsContext);
   const {currentUser, setCurrentUser} = useContext(CurrentUserContext)
 
-  if(!currentUser) return <SignupPage  onHandleLoginFetch={onHandleLoginFetch}/>
+  if(!currentUser) return <SignupPage  onHandleLoginFetch={onHandleLoginFetch} handleUserSignupFetch={handleUserSignupFetch}/>
 
   function onHandleLoginFetch(loginObj) {
     fetch('/login', {
@@ -23,12 +23,12 @@ function App() {
       headers: {
           "Content-Type": "application/json",
       },
-      body: JSON.stringify(loginObj),
+      body: JSON.stringify(loginObj)
   }).then(r => {
     if(r.ok) {
         r.json().then(userData => setCurrentUser(userData))
     } else {
-        r.json().then(errorData => alert(errorData.errors))
+        r.json().then(errorData => alert(errorData.error))
     }
   })
   }
@@ -39,10 +39,27 @@ function App() {
     }).then(() => setCurrentUser(null));
   }
 
+  function handleUserSignupFetch(newUserObj) {
+    console.log(newUserObj)
+    fetch('/signup', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUserObj)
+    })
+    .then(r => {
+      if(r.ok) {
+          r.json().then(newUserData => setCurrentUser(newUserData))
+      } else {
+          r.json().then(errorData => alert(errorData.errors))
+      }
+    })
+  }
+
   
   
   function onHandleCreateProduct(newProdObj) {
-    // console.log(data)
     fetch('/products', {
       method: "POST",
       headers: {
@@ -63,8 +80,9 @@ function App() {
     console.log(newProductData.image_url)
   }
   return (
-    <div className="App">\
-      <SignupPage />
+    <div className="App">
+      <NavBar/>
+      {/* <SignupPage handleUserSignupFetch={handleUserSignupFetch}/> */}
       <UserProfile onHandleLogout={onHandleLogout}/>
       <ProductsPage />
       <NewProductForm onHandleCreateProduct={onHandleCreateProduct}/>
