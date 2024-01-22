@@ -2,6 +2,11 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  # config.action_mailer.default_url_options = { :host => "https://resell-6o8b.onrender.com" }
+
+  Rails.application.routes.default_url_options = {
+  host: 'https://resell-6o8b.onrender.com'
+}
 
   # Code is not reloaded between requests.
   config.cache_classes = true
