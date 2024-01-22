@@ -1,11 +1,13 @@
 import React from "react";
+import {NavLink} from "react-router-dom"
 
-function NavBar() {
+function NavBar({username}) {
     return(
         <div>
-            <button>UserProfile</button> 
-            <button>View Your bids</button>
-            <button>View Products</button>
+            <NavLink to='/profile'>{username}'s profile</NavLink> 
+            <NavLink to='/profile'>View Your bids</NavLink>
+            <NavLink to='/products-page'>View Products</NavLink>
+            <NavLink to='/product/new'>Upload A New Product</NavLink>
         </div>
     )
 }
