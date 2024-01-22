@@ -12,7 +12,7 @@ User.create({username: 'ekraft', password: 'ekraft', password_confirmation: 'ekr
 User.create({username: 'dougie', password: 'dougie', password_confirmation: 'dougie', email: 'dtownsend33@gmail.com'})
 
 10.times do 
-    Product.create({ description: Faker::Lorem.paragraphs, minimum_price: rand(10.00..100.00).round(2)})
+    Product.create({ product_name: Faker::Commerce.product_name,description: Faker::Lorem.paragraphs, minimum_price: rand(10.00..100.00).round(2)})
 end
 
 User.all.each do |user|
