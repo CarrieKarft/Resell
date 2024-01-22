@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :comments
   resources :products
   resources :users, except: [:show, :create]
+  get '/search-products/:product_name', to: "products#search_products"
   post '/signup', to: "users#create"
   get '/me', to: "users#show"
   delete '/logout', to: "sessions#destroy"
