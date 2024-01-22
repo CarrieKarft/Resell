@@ -12,7 +12,7 @@ import UserProfile from './components/UserProfile';
 
 
 function App() {
-  const {setProducts} = useContext(ProductsContext);
+  const {products, setProducts} = useContext(ProductsContext);
   const {currentUser, setCurrentUser} = useContext(CurrentUserContext)
 
   if(!currentUser) return <SignupPage  onHandleLoginFetch={onHandleLoginFetch} handleUserSignupFetch={handleUserSignupFetch}/>
@@ -59,13 +59,10 @@ function App() {
 
   
   
-  function onHandleCreateProduct(newProdObj) {
+  function onHandleCreateProduct(data) {
     fetch('/products', {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newProdObj)
+      body: data
     })
     .then((r) => {
       if(r.ok) {
@@ -78,6 +75,8 @@ function App() {
 
   function handleNewProductState(newProductData) {
     console.log(newProductData.image_url)
+    const addingNewProduct = [...products, newProductData]
+    setProducts(addingNewProduct)
   }
   return (
     <div className="App">
