@@ -2,24 +2,29 @@ import React, {useState} from "react";
 
 function NewProductForm({onHandleCreateProduct}) {
     const [description, setDescription] = useState('')
-    const [minPrice, setMinPrice] = useState()
-    const [image, setImage] = useState()
+    const [minPrice, setMinPrice] = useState('')
+    const [image, setImage] = useState('')
+    const [productName, setProductName] = useState('')
     function handleFormSubmit(e) {
         e.preventDefault()
-        // const data = new FormData();
-        // data.append("product[description]", e.target.description.value);
-        // data.append("product[minimum_price", e.target.minimum_price.value);
-        // data.append("product[image]", e.target.image.files[0])
+        const data = new FormData();
+        data.append("description", description);
+        data.append("minimum_price", minPrice);
+        data.append("image", image)
+        data.append("product_name", productName)
 
-        // console.log(data)
+        console.log(data)
+        console.log(data.get("description"))
+        // console.log(minPrice)
+        // console.log(image)
         // onHandleCreateProduct(data)
-        const newProdObj = {
-            description: description,
-            minimum_price: minPrice,
-            image: image
-        }
-        console.log(newProdObj)
-        onHandleCreateProduct(newProdObj)
+        // const newProdObj = {
+        //     description: description,
+        //     minimum_price: minPrice,
+        //     image: image
+        // }
+        // console.log(newProdObj)
+        onHandleCreateProduct(data)
     }
 
     return (
@@ -37,7 +42,14 @@ function NewProductForm({onHandleCreateProduct}) {
                 <label htmlFor="image">Product Image</label>
                 <input type='file' name="image" id='image'></input>
                 <br /> */}
-
+                <label>Product Name
+                    <input
+                    type='text'
+                    value={productName}
+                    onChange={e => setProductName(e.target.value)}
+                    ></input>
+                </label>
+                <br/>
                 <label> Descripition
                     <input
                     type='text'
@@ -57,8 +69,8 @@ function NewProductForm({onHandleCreateProduct}) {
                 <label>Image
                     <input
                     type='file'
-                    value={image}
-                    onChange={e => setImage(e.target.value)}
+                    // value={image}
+                    onChange={e => setImage(e.target.files[0])}
                     ></input>
                 </label>
                 <br />
