@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import {Routes, Route, useNavigate} from "react-router-dom";
 import ProductsPage from './components/ProductsPage';
 import NewProductForm from './components/NewProductForm';
 import {ProductsContext} from './context/ProductsContext'
@@ -80,11 +81,14 @@ function App() {
   }
   return (
     <div className="App">
-      <NavBar/>
-      {/* <SignupPage handleUserSignupFetch={handleUserSignupFetch}/> */}
-      <UserProfile onHandleLogout={onHandleLogout}/>
-      <ProductsPage />
-      <NewProductForm onHandleCreateProduct={onHandleCreateProduct}/>
+      
+      <NavBar username={currentUser.username}/>
+      <Routes>
+        {/* <SignupPage handleUserSignupFetch={handleUserSignupFetch}/> */}
+        <Route path='/profile' element={<UserProfile onHandleLogout={onHandleLogout}/>} />
+        <Route path='/products-page' element={<ProductsPage />} />
+        <Route path='/product/new' element={<NewProductForm onHandleCreateProduct={onHandleCreateProduct}/>} />
+      </Routes>
     </div>
   );
 }
