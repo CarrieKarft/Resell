@@ -12,7 +12,91 @@ code {
     monospace;
 }
 
+.App {
+  text-align: center;
+  background-color: #31405f;
+  color: #c995a2;
+  height: 100%;
+  width: 100%;
+}
+
+.poductsPage {
+  text-align: center;
+}
+
 .productImage {
   height: 400px;
   width: 300px;
 }
+
+.productCardContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* text-align: center; */
+}
+
+.productCard {
+  background-color: #c995a2;
+  color: #31405f;
+  width: 400px;
+  padding: 2%;
+  margin: 2%;
+  border-radius: 25px;
+}
+
+.viewProduct {
+  text-align: center;
+  margin: auto, 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding-top: 40px;
+  padding-bottom: 40px; */
+}
+
+.topHalf {
+  background-color: #c995a2;
+  color: #31405f;
+  margin-bottom: 0%;
+  padding-bottom: 0%;
+  padding: 2%;
+  margin: 2%;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  width: 600px;
+  justify-self: center;
+}
+
+.bottomHalf {
+  background-color: #bfc6cc;
+  color: #094152;
+  margin-top: 0%;
+  padding-top: 0%;
+  padding: 2%;
+  margin: 2%;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  width: 600px;
+}
+
+.navBar {
+  background-color: #bfc6cc;
+  padding: 10px;
+  margin: 10px;
+  width: 100%;
+}
+
+.comment {
+  border-top: solid 1px #094152;
+  padding-top: 3px;
+  margin-top: 12px;
+}
+
+textarea {
+  width: 80%;
+  /* height: 80%; */
+}
+
+
