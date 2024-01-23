@@ -10,9 +10,11 @@ function ProductsPage({}){
 
     const mappingProducts = products.map(prod => <ProductCard key={prod.id} prod={prod}/>)
     return (
-        <div>
+        <div className="poductsPage">
             <h1>Products Page</h1>
-            {mappingProducts}
+            <div className="productCardContainer">
+                {mappingProducts}
+            </div>
         </div>
     )
 }
