@@ -1,12 +1,25 @@
-import React from "react";
+import React, {useState, useContext} from "react";
+import EditCommentForm from './EditCommentForm'
+import {CurrentUserContext} from '../context/CurrentUserContext'
 
-function Comment({comm}) {
+function Comment({comm, onHandleUpdatingComment, onHandleDelete}) {
+    const {currentUser} = useContext(CurrentUserContext)
+    const [clicked, setClicked] = useState(false)
+
     console.log(comm)
-    const {comment, product_id, comment_username} = comm
+    const {comment, product_id, comment_username, user_id} = comm
+    console.log(user_id)
+
     return (
-        <div>
-            <h4>{comment_username}:</h4>
-            <p>{comment}</p>
+        <div className="comment">
+            {/* <h4>{comment_username}:</h4> */}
+            <p><b>{comment_username}:</b> {comment}</p>
+            <div style={{ display: currentUser.id === user_id ? (clicked ? "none" : null) : "none"}}>
+                <button onClick={() => setClicked(true)}>Edit Comment</button>
+            </div>
+            <div style={{display: clicked ? null : "none"}}>
+                <EditCommentForm comm={comm} onHandleUpdatingComment={onHandleUpdatingComment} onHandleDelete={onHandleDelete} setClicked={setClicked}/>
+            </div>
         </div>
     )
 }
