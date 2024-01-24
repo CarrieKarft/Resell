@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Routes, Route, useNavigate, json} from "react-router-dom";
+import {Routes, Route, useNavigate} from "react-router-dom";
 import ProductsPage from './components/ProductsPage';
 import NewProductForm from './components/NewProductForm';
 import {ProductsContext} from './context/ProductsContext'
@@ -9,13 +9,15 @@ import NavBar from './components/NavBar';
 import CurrentUserBids from './components/CurrentUserBids';
 import ViewProduct from './components/ViewProduct';
 import UserProfile from './components/UserProfile';
+import AboutPage from './components/AboutPage';
+
 
 
 
 function App() {
   const {products, setProducts} = useContext(ProductsContext);
   const {currentUser, setCurrentUser} = useContext(CurrentUserContext)
-  console.log(products)
+
   if(!currentUser) return <SignupPage  onHandleLoginFetch={onHandleLoginFetch} handleUserSignupFetch={handleUserSignupFetch}/>
 
   function onHandleLoginFetch(loginObj) {
@@ -41,7 +43,7 @@ function App() {
   }
 
   function handleUserSignupFetch(newUserObj) {
-    console.log(newUserObj)
+    // console.log(newUserObj)
     fetch('/signup', {
       method: "POST",
       headers: {
@@ -75,13 +77,13 @@ function App() {
   }
 
   function handleNewProductState(newProductData) {
-    console.log(newProductData.image_url)
+    // console.log(newProductData.image_url)
     const addingNewProduct = [...products, newProductData]
     setProducts(addingNewProduct)
   }
 
   function onHandelCreatingNewComment(newCommentObj) {
-    console.log(newCommentObj)
+    // console.log(newCommentObj)
     fetch('/comments', {
       method: "POST",
       headers: {
@@ -98,7 +100,7 @@ function App() {
   }
 
   function handleUpdatingCommentState(newCommentData) {
-    console.log(newCommentData)
+    // console.log(newCommentData)
     const findingProduct = products.find(prod => prod.id === newCommentData.product_id)
     const updatingProdComments = [...findingProduct.comments, newCommentData]
     const updatingProd = {...findingProduct, comments: updatingProdComments}
@@ -108,8 +110,8 @@ function App() {
   }
 
   function onHandleUpdatingComment(comment, id) {
-    console.log(comment)
-    console.log(id)
+    // console.log(comment)
+    // console.log(id)
     fetch(`/comments/${id}`,  {
       method: "PATCH",
       headers: {
@@ -134,7 +136,7 @@ function App() {
   }
 
   function onHandleDelete(id, product_id) {
-    console.log(id)
+    // console.log(id)
     fetch(`/comments/${id}`, {
       method: "DELETE",
     })
@@ -148,8 +150,8 @@ function App() {
   }
 
   function handleRemovingComment(id, product_id) {
-    console.log(id)
-    console.log(product_id)
+    // console.log(id)
+    // console.log(product_id)
     const findingProduct = products.find(prod => prod.id === product_id);
     const filterOutComment = findingProduct.comments.filter(comm => comm.id !== id);
     const updatingProduct = {...findingProduct, comments: filterOutComment};
@@ -157,16 +159,121 @@ function App() {
     setProducts(replacingProduct);
   }
 
+  function onHandleSearchCall(searchWord) {
+    console.log(searchWord)
+    fetch(`/search-products/${searchWord}`)
+    .then(r => {
+      if(r.ok) {
+        r.json().then((productData) => console.log(productData))
+      } else {
+        r.json().then(errorData => alert(errorData.error))
+      }
+    })
+  }
+
+  function onHandleUpdatingBid (id, bidObj) {
+    // console.log(id)
+    // console.log(bidObj)
+    fetch(`/bids/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(bidObj)
+    })
+    .then(r => {
+      if(r.ok) {
+        r.json().then((updatedbid) => handleUpdatingBidState(updatedbid))
+      } else {
+        r.json().then(errorData => alert(errorData.error))
+      }
+    })
+  }
+
+  function handleUpdatingBidState(updatedbid) {
+    console.log(updatedbid)
+    // need to update prod.highest bid
+    console.log(products)
+    const findProduct = products.find(prod => updatedbid.product_id === prod.id);
+    findProduct.highest_bid = updatedbid.bid_amount;
+    const updatingProducts = products.map(prod => prod.id === findProduct.id ? findProduct : prod);
+    console.log(updatingProducts)
+    setProducts(updatingProducts)
+    console.log(currentUser)
+    // need to update currentUser.bids
+    const replacingUserBid = currentUser.bids.map(bid => bid.id === updatedbid.id ? updatedbid : bid)
+    // need to update currentUser.products.highest_bid
+    const findinUserProduct = currentUser.products.find(prod => updatedbid.product_id === prod.id);
+    findinUserProduct.highest_bid = updatedbid.bid_amount;
+    const replacingProductForUser = currentUser.products.map(prod => prod.id === findinUserProduct.id ? findinUserProduct : prod)
+    const newCurrentUser = {...currentUser, products: replacingProductForUser, bids: replacingUserBid}
+    console.log(newCurrentUser)
+    setCurrentUser(newCurrentUser)
+
+  }
+
+  function onHandleCreateBid(bidObj) {
+    console.log(bidObj)
+    fetch('/bids', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bidObj)
+    })
+    .then(r => {
+      if(r.ok) {
+        r.json().then((newBid) => handleCreatingBidState(newBid))
+      } else {
+        r.json().then(errorData => alert(errorData.error))
+      }
+    })
+  }
+
+function handleCreatingBidState(newBid) {
+  console.log(newBid)
+  console.log("1", products)
+  const findProduct = products.find(prod => prod.id === newBid.product_id);
+  findProduct.highest_bid = newBid.bid_amount;
+  const replacingProduct = products.map(prod => prod.id === findProduct.id ? findProduct : prod);
+  console.log("2", replacingProduct)
+  setProducts(replacingProduct);
+
+ console.log("1", currentUser)
+  const addBidToBids = [...currentUser.bids, newBid];
+
+  // update current user products highest bid
+  // find product
+  const findUserProduct = currentUser.products.find(prod => prod.id === newBid.product_id)
+  console.log(findUserProduct)
+  if (!findUserProduct) {
+    const {comments, ...notComments} = findProduct
+    const addingProductToUser = [...currentUser.products, notComments];
+    const newCurrentUser1 = {...currentUser, bids: addBidToBids, products: addingProductToUser};
+    console.log(newCurrentUser1)
+    setCurrentUser(newCurrentUser1)
+  } else {
+     // assign new highest bid
+  findUserProduct.highest_bid = newBid.bid_amount
+  // add to current user products
+  const replacingUserProducts = currentUser.products.map(prod => prod.id === findUserProduct.id ? findUserProduct : prod)
+  // replace products in current user object
+  const newCurrentUser = {...currentUser, bids: addBidToBids, products: replacingUserProducts};
+  console.log("2", newCurrentUser)
+  setCurrentUser(newCurrentUser)
+  }
+}
 
   return (
     <div className="App">
-      
       <NavBar username={currentUser.username}/>
       <Routes>
+        <Route path='/' element={<AboutPage />} />
         <Route path='/profile' element={<UserProfile onHandleLogout={onHandleLogout}/>} />
-        <Route path='/products-page' element={<ProductsPage />} />
+        <Route path='/bids' element={<CurrentUserBids />} />
+        <Route path='/products-page' element={<ProductsPage onHandleSearchCall={onHandleSearchCall}/>} />
         <Route path='/product/new' element={<NewProductForm onHandleCreateProduct={onHandleCreateProduct}/>} />
-        <Route path='/product/:id' element={<ViewProduct onHandelCreatingNewComment={onHandelCreatingNewComment} onHandleUpdatingComment={onHandleUpdatingComment} onHandleDelete={onHandleDelete}/>}/>
+    <Route path='/product/:id' element={<ViewProduct onHandelCreatingNewComment={onHandelCreatingNewComment} onHandleUpdatingComment={onHandleUpdatingComment} onHandleDelete={onHandleDelete} onHandleUpdatingBid={onHandleUpdatingBid} onHandleCreateBid={onHandleCreateBid}/>}/>
       </Routes>
     </div>
   );
