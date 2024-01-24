@@ -14,7 +14,7 @@ function SignupForm({handleUserSignupFetch}) {
             password,
             password_confirmation: passwordConfirmation
         }
-        console.log(newUserObj)
+        // console.log(newUserObj)
 
         handleUserSignupFetch(newUserObj)
     }
