@@ -3,9 +3,14 @@ class BidsController < ApplicationController
     # user can place a bid on a product
     def create
         user = find_user
-        bid = user.bids.create!(bid_params)
-        bid.update!(bid_accepted: false)
-        render json: bid, status: :created
+        product = Product.find(params[:product_id])
+        if product.highest_bid < params[:bid_amount].to_f
+            bid = user.bids.create!(bid_params)
+            bid.update!(bid_accepted: false)
+            render json: bid, status: :created
+        else
+            render json: {error: "Your bid amount needs to be higher than the current highest bid"}, status: :unprocessable_entity
+        end
     end
 
     # user can see all bids they have placed
@@ -19,9 +24,13 @@ class BidsController < ApplicationController
     def update
         user = find_user
         bid = user.bids.find(params[:id])
-        bid.update!(bid_params)
-        bid.update!(bid_accepted: false)
-        render json: bid, status: 200
+        if bid.bid_amount < params[:bid_amount].to_f
+            bid.update!(bid_params)
+            bid.update!(bid_accepted: false)
+            render json: bid, status: 200
+        else
+            render json: {error: "Your bid amount needs to be higher than the current highest bid"}, status: :unprocessable_entity
+        end
     end
 
     private 
