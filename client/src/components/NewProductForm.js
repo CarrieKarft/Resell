@@ -13,17 +13,8 @@ function NewProductForm({onHandleCreateProduct}) {
         data.append("image", image)
         data.append("product_name", productName)
 
-        console.log(data)
-        console.log(data.get("description"))
-        // console.log(minPrice)
-        // console.log(image)
-        // onHandleCreateProduct(data)
-        // const newProdObj = {
-        //     description: description,
-        //     minimum_price: minPrice,
-        //     image: image
-        // }
-        // console.log(newProdObj)
+        // console.log(data)
+        // console.log(data.get("description"))
         onHandleCreateProduct(data)
     }
 
