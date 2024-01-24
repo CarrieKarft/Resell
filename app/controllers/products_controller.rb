@@ -17,9 +17,8 @@ class ProductsController < ApplicationController
 
     # /search-products/Practical Wooden Bottle is how url needs to be formatted for this to work
     def search_products
-        byebug
-        product = Product.find_by(product_name: params[:product_name])
-        render json: product
+        products = Product.where("product_name LIKE ?","#{params[:product_name]}%" )
+        render json: products
         # need to fine tune this so spelling doesnt need to be exact,and returns multiple options of similarly named products
     end
 
