@@ -6,9 +6,9 @@ function Comment({comm, onHandleUpdatingComment, onHandleDelete}) {
     const {currentUser} = useContext(CurrentUserContext)
     const [clicked, setClicked] = useState(false)
 
-    console.log(comm)
+    // console.log(comm)
     const {comment, product_id, comment_username, user_id} = comm
-    console.log(user_id)
+    // console.log(user_id)
 
     return (
         <div className="comment">
