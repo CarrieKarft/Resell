@@ -12,6 +12,10 @@ class Product < ApplicationRecord
     end
 
     def highest_bid
-        self.bids.maximum(:bid_amount)
+        if self.bids.length > 0
+            self.bids.maximum(:bid_amount)
+        else
+            0.00
+        end
     end
 end
