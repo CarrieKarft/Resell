@@ -4,14 +4,15 @@ import ProductCard from "./ProductCard";
 import SearchBar from "./SearchBar";
 
 
-function ProductsPage({}){
+function ProductsPage({onHandleSearchCall}){
     const {products} = useContext(ProductsContext);
-    console.log(products)
+    // console.log(products)
 
     const mappingProducts = products.map(prod => <ProductCard key={prod.id} prod={prod}/>)
     return (
         <div className="poductsPage">
             <h1>Products Page</h1>
+            <SearchBar onHandleSearchCall={onHandleSearchCall}/>
             <div className="productCardContainer">
                 {mappingProducts}
             </div>
