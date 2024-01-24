@@ -3,7 +3,7 @@ import React, {useState} from "react";
 function EditCommentForm({comm, onHandleUpdatingComment, onHandleDelete, setClicked}) {
     const {id, product_id} = comm
     const [comment, setComment] = useState(comm.comment)
-    console.log(comm)
+    // console.log(comm)
 
     function handleSubmit(e) {
         e.preventDefault() 
