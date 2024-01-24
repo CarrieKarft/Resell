@@ -82,10 +82,16 @@ code {
 }
 
 .navBar {
+  /* background-color: #bfc6cc; */
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.nav {
   background-color: #bfc6cc;
   padding: 10px;
-  margin: 10px;
-  width: 100%;
 }
 
 .comment {
@@ -97,6 +103,32 @@ code {
 textarea {
   width: 80%;
   /* height: 80%; */
+}
+
+.about {
+  margin: 20px;
+  padding: 90px;
+}
+
+.productBidDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top: solid 1px #31405f;
+  margin: 5%;
+}
+.previousBid {
+  height: 10%;
+
+}
+
+.productBidDiv h3 {
+  margin-top: 5%;
+}
+
+.newBid {
+  margin-top: 5%;
+  height: 10%;
 }
 
 
