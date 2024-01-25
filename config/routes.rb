@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :comments
     resources :products
     resources :users, except: [:show, :create]
+    patch '/accept_bid/:id', to: "bids#accept_bid"
     get '/search-products/:product_name', to: "products#search_products"
     post '/signup', to: "users#create"
     get '/me', to: "users#show"
