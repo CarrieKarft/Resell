@@ -13,6 +13,7 @@ class BidsController < ApplicationController
         end
     end
 
+    # maybe fix so that winning bids uses this instead of handeling finding winning bids in the frontedn
 # not using
     # def index
     #     user = find_user
