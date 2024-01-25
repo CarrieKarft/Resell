@@ -1,6 +1,7 @@
 class ProductSerializer < ActiveModel::Serializer
-  attributes :id, :description, :minimum_price, :image, :image_url, :highest_bid, :product_name
+  attributes :id, :description, :image, :image_url, :product_name, :current_highest_bid
 
 
   has_many :comments
+  # has_many :bids
 end
