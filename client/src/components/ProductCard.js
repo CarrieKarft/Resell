@@ -1,12 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-// import Bid from "./Bid";
-// import Comment from "./Comment";
-// import CreateCommentForm from "./CreateCommentForm";
 
 
 function ProductCard({prod}) {
-    // console.log(prod)
     const {image_url, product_name, id} = prod
 
     return (
