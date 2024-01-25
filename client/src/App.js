@@ -82,6 +82,7 @@ function App() {
     // console.log(newProductData.image_url)
     const addingNewProduct = [...products, newProductData]
     setProducts(addingNewProduct)
+    navigate('/products-page')
   }
 
   function onHandelCreatingNewComment(newCommentObj) {
