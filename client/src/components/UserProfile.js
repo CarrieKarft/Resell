@@ -11,7 +11,7 @@ function UserProfile({onHandleLogout}) {
     const gettingProducts = products.filter(prod => winningBids.includes(prod.id)).map(prod => {
         return (
             <div key={prod.id}>
-                <h3>Congrats! You've won some bids</h3>
+                <h3>Congrats! You've won a bid</h3>
                 <div className="productCardContainer">
                     <ProductCard prod={prod} key={prod.id}/>
                 </div>
@@ -19,15 +19,9 @@ function UserProfile({onHandleLogout}) {
         )
     
 })
-    // const gettingProductId = winningBids.map(bid)
-    // console.log(gettingProducts)
-    // console.log(gettingProductId)
-
-    
-
 
     return (
-        <div>
+        <div className="profile">
             <h1>User Profile</h1>
             <button onClick={() => onHandleLogout()}>Logout</button>
             <h2>Hello, {username}</h2>
