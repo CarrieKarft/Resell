@@ -3,7 +3,7 @@ import {ProductsContext} from '../context/ProductsContext'
 import ProductCard from "./ProductCard";
 
 
-function ProductsPage({}){
+function ProductsPage(){
     const {products} = useContext(ProductsContext);
 
     const mappingProducts = products.map(prod => <ProductCard key={prod.id} prod={prod}/>)
