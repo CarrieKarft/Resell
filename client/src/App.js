@@ -20,7 +20,7 @@ function App() {
 
   const navigate = useNavigate();
 
-  if(!currentUser) return <SignupPage  onHandleLoginFetch={onHandleLoginFetch} handleUserSignupFetch={handleUserSignupFetch}/>
+  if(!currentUser) return <SignupPage onHandleLoginFetch={onHandleLoginFetch} handleUserSignupFetch={handleUserSignupFetch}/>
 
   function onHandleLoginFetch(loginObj) {
     fetch('/login', {
