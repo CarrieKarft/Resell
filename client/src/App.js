@@ -20,7 +20,7 @@ function App() {
 
   const navigate = useNavigate();
 
-  if(!currentUser) return <SignupPage onHandleLoginFetch={onHandleLoginFetch} handleUserSignupFetch={handleUserSignupFetch}/>
+  if(!currentUser) return <div className='signUp'><SignupPage onHandleLoginFetch={onHandleLoginFetch} handleUserSignupFetch={handleUserSignupFetch}/></div>
 
   function onHandleLoginFetch(loginObj) {
     fetch('/login', {
@@ -153,8 +153,6 @@ function App() {
   }
 
   function handleRemovingComment(id, product_id) {
-    // console.log(id)
-    // console.log(product_id)
     const findingProduct = products.find(prod => prod.id === product_id);
     const filterOutComment = findingProduct.comments.filter(comm => comm.id !== id);
     const updatingProduct = {...findingProduct, comments: filterOutComment};
@@ -162,21 +160,7 @@ function App() {
     setProducts(replacingProduct);
   }
 
-  function onHandleSearchCall(searchWord) {
-    console.log(searchWord)
-    fetch(`/search-products/${searchWord}`)
-    .then(r => {
-      if(r.ok) {
-        r.json().then((productData) => console.log(productData))
-      } else {
-        r.json().then(errorData => alert(errorData.error))
-      }
-    })
-  }
-
   function onHandleUpdatingBid (id, bidObj) {
-    // console.log(id)
-    // console.log(bidObj)
     fetch(`/bids/${id}`, {
       method: "PATCH",
       headers: {
@@ -317,7 +301,7 @@ function handleRemovingProduct(findingProduct) {
         <Route path='/' element={<AboutPage />} />
         <Route path='/profile' element={<UserProfile onHandleLogout={onHandleLogout}/>} />
         <Route path='/bids' element={<CurrentUserBids />} />
-        <Route path='/products-page' element={<ProductsPage onHandleSearchCall={onHandleSearchCall}/>} />
+        <Route path='/products-page' element={<ProductsPage/>} />
         <Route path='/product/new' element={<NewProductForm onHandleCreateProduct={onHandleCreateProduct}/>} />
     <Route path='/product/:id' element={<ViewProduct onHandelCreatingNewComment={onHandelCreatingNewComment} onHandleUpdatingComment={onHandleUpdatingComment} onHandleDelete={onHandleDelete} onHandleUpdatingBid={onHandleUpdatingBid} onHandleCreateBid={onHandleCreateBid} onHandleUpdatingWinningBid={onHandleUpdatingWinningBid} onHandleUpdatingNonWinner={onHandleUpdatingNonWinner}/> }/>
       </Routes>
