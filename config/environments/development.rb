@@ -1,5 +1,6 @@
 require "active_support/core_ext/integer/time"
 
+config.action_mailer.default_url_options = {host: 'http://localhost:3000'}
 Rails.application.routes.default_url_options = {
   host: 'http://localhost:3000'
 }

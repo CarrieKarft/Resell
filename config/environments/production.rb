@@ -2,7 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  # config.action_mailer.default_url_options = { :host => "https://resell-6o8b.onrender.com" }
+  config.action_mailer.default_url_options = { :host => "https://resell-6o8b.onrender.com" }
 
   Rails.application.routes.default_url_options = {
   host: 'https://resell-6o8b.onrender.com'
@@ -12,6 +12,8 @@ Rails.application.configure do
   config.cache_classes = true
 
   config.active_storage.service = :amazon
+
+
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -24,7 +26,7 @@ Rails.application.configure do
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
-  # config.require_master_key = true
+  config.require_master_key = true
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
