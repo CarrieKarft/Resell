@@ -62,7 +62,6 @@ ActiveRecord::Schema.define(version: 2024_01_20_072414) do
 
   create_table "products", force: :cascade do |t|
     t.string "description"
-    t.float "minimum_price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "product_name"
