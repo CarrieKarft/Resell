@@ -15,6 +15,13 @@ class ProductsController < ApplicationController
         render json: product, status: :created
     end
 
+    def destroy
+        product = Product.find(params[:id])
+        product.delete
+        render json: {}
+    end
+
+
     # /search-products/Practical Wooden Bottle is how url needs to be formatted for this to work
     def search_products
         products = Product.where("product_name LIKE ?","#{params[:product_name]}%" )
