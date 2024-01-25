@@ -11,7 +11,6 @@ function ViewProduct({onHandelCreatingNewComment, onHandleUpdatingComment, onHan
     const {id} = useParams()
     const {products} = useContext(ProductsContext)
     const {currentUser} = useContext(CurrentUserContext)
-    // console.log(currentUser.bids)
 
     const findProduct = products.find(prod => prod.id == id)
     if (!findProduct) return <h2>Loading...</h2>
