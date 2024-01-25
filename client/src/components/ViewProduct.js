@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import {useParams} from  'react-router-dom';
 import { ProductsContext } from '../context/ProductsContext'
 import { CurrentUserContext } from "../context/CurrentUserContext";
@@ -27,7 +27,7 @@ function ViewProduct({onHandelCreatingNewComment, onHandleUpdatingComment, onHan
         <div className="viewProduct">
             <div className="topHalf">
                 <h2>{product_name}</h2>
-                <img src={image_url} alt="product picture" className="productImage"/>
+                <img src={image_url} alt={product_name} className="productImage"/>
                 <p>{description}</p>
                 <div>
                     <BidTimer current_highest_bid={current_highest_bid} findProduct={findProduct} onHandleUpdatingWinningBid={onHandleUpdatingWinningBid} onHandleUpdatingNonWinner={onHandleUpdatingNonWinner}/>
