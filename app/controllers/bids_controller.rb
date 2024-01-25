@@ -13,12 +13,12 @@ class BidsController < ApplicationController
         end
     end
 
-    # user can see all bids they have placed
-    def index
-        user = find_user
-        bids = user.bids
-        render json: bids, status: 200
-    end
+# not using
+    # def index
+    #     user = find_user
+    #     bids = user.bids
+    #     render json: bids, status: 200
+    # end
 
     # user can update a bid amount to higher value
     def update
