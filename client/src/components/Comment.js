@@ -6,13 +6,10 @@ function Comment({comm, onHandleUpdatingComment, onHandleDelete}) {
     const {currentUser} = useContext(CurrentUserContext)
     const [clicked, setClicked] = useState(false)
 
-    // console.log(comm)
-    const {comment, product_id, comment_username, user_id} = comm
-    // console.log(user_id)
+    const {comment, comment_username, user_id} = comm
 
     return (
         <div className="comment">
-            {/* <h4>{comment_username}:</h4> */}
             <p><b>{comment_username}:</b> {comment}</p>
             <div style={{ display: currentUser.id === user_id ? (clicked ? "none" : null) : "none"}}>
                 <button onClick={() => setClicked(true)}>Edit Comment</button>
