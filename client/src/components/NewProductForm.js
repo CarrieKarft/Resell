@@ -2,19 +2,15 @@ import React, {useState} from "react";
 
 function NewProductForm({onHandleCreateProduct}) {
     const [description, setDescription] = useState('')
-    const [minPrice, setMinPrice] = useState('')
     const [image, setImage] = useState('')
     const [productName, setProductName] = useState('')
     function handleFormSubmit(e) {
         e.preventDefault()
         const data = new FormData();
         data.append("description", description);
-        data.append("minimum_price", minPrice);
         data.append("image", image)
         data.append("product_name", productName)
 
-        // console.log(data)
-        // console.log(data.get("description"))
         onHandleCreateProduct(data)
     }
 
@@ -49,14 +45,6 @@ function NewProductForm({onHandleCreateProduct}) {
                     ></input>
                 </label>
                 <br />
-                <label>Minimum Price
-                    <input
-                    type='text'
-                    value={minPrice}
-                    onChange={e => setMinPrice(e.target.value)}
-                    ></input>
-                </label>
-                <br />
                 <label>Image
                     <input
                     type='file'
@@ -73,5 +61,8 @@ function NewProductForm({onHandleCreateProduct}) {
 
 export default NewProductForm;
 
+
 // t.string "description"
-// t.float "minimum_price"
+// t.datetime "created_at", precision: 6, null: false
+// t.datetime "updated_at", precision: 6, null: false
+// t.string "product_name"
