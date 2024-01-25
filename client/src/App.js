@@ -18,6 +18,8 @@ function App() {
   const {products, setProducts} = useContext(ProductsContext);
   const {currentUser, setCurrentUser} = useContext(CurrentUserContext)
 
+  const navigate = useNavigate();
+
   if(!currentUser) return <SignupPage  onHandleLoginFetch={onHandleLoginFetch} handleUserSignupFetch={handleUserSignupFetch}/>
 
   function onHandleLoginFetch(loginObj) {
@@ -195,16 +197,17 @@ function App() {
     // need to update prod.highest bid
     console.log(products)
     const findProduct = products.find(prod => updatedbid.product_id === prod.id);
-    findProduct.highest_bid = updatedbid.bid_amount;
+    findProduct.current_highest_bid = updatedbid;
     const updatingProducts = products.map(prod => prod.id === findProduct.id ? findProduct : prod);
     console.log(updatingProducts)
     setProducts(updatingProducts)
     console.log(currentUser)
     // need to update currentUser.bids
     const replacingUserBid = currentUser.bids.map(bid => bid.id === updatedbid.id ? updatedbid : bid)
-    // need to update currentUser.products.highest_bid
+
     const findinUserProduct = currentUser.products.find(prod => updatedbid.product_id === prod.id);
-    findinUserProduct.highest_bid = updatedbid.bid_amount;
+    findinUserProduct.current_highest_bid = updatedbid;
+    // findinUserProduct.current_highest_bid.bid_amount = updatedbid.bid_amount;
     const replacingProductForUser = currentUser.products.map(prod => prod.id === findinUserProduct.id ? findinUserProduct : prod)
     const newCurrentUser = {...currentUser, products: replacingProductForUser, bids: replacingUserBid}
     console.log(newCurrentUser)
@@ -234,7 +237,8 @@ function handleCreatingBidState(newBid) {
   console.log(newBid)
   console.log("1", products)
   const findProduct = products.find(prod => prod.id === newBid.product_id);
-  findProduct.highest_bid = newBid.bid_amount;
+  // findProduct.highest_bid = newBid.bid_amount;
+  findProduct.current_highest_bid = newBid;
   const replacingProduct = products.map(prod => prod.id === findProduct.id ? findProduct : prod);
   console.log("2", replacingProduct)
   setProducts(replacingProduct);
@@ -254,7 +258,8 @@ function handleCreatingBidState(newBid) {
     setCurrentUser(newCurrentUser1)
   } else {
      // assign new highest bid
-  findUserProduct.highest_bid = newBid.bid_amount
+  // findUserProduct.highest_bid = newBid.bid_amount
+  findUserProduct.current_highest_bid = newBid
   // add to current user products
   const replacingUserProducts = currentUser.products.map(prod => prod.id === findUserProduct.id ? findUserProduct : prod)
   // replace products in current user object
@@ -263,6 +268,46 @@ function handleCreatingBidState(newBid) {
   setCurrentUser(newCurrentUser)
   }
 }
+
+function onHandleUpdatingWinningBid(winningBid) {
+  console.log(winningBid)
+  const updatingBids = currentUser.bids.map(bid => bid.id === winningBid.id ? winningBid : bid)
+  const updatingUser = {...currentUser, bids: updatingBids}
+  setCurrentUser(updatingUser)
+  console.log(currentUser)
+
+  // fix product state 
+  // find product
+  const findProdut = products.find(prod => prod.id === winningBid.product_id)
+  // set current_highest_bid to winning bid
+  findProdut.current_highest_bid = winningBid
+  // replace products
+  const replaceProducts = products.map(prod => prod.id === findProdut.id ? findProdut : prod)
+  // set in state
+  setProducts(replaceProducts)
+  console.log(products)
+}
+
+function onHandleUpdatingNonWinner(findProduct) {
+  fetch(`/products/${findProduct.id}`, {
+    method: "DELETE",
+  })
+  .then(r => {
+    if(r.ok) {
+      r.json().then(() => handleRemovingProduct(findProduct))
+    } else {
+      r.json().then(errorData => alert(errorData.error))
+    }
+  })
+}
+
+function handleRemovingProduct(findingProduct) {
+  const filteringOutProduct = products.filter(prod => prod.id !== findingProduct.id)
+  setProducts(filteringOutProduct)
+  navigate('/products-page')
+}
+
+ 
 
   return (
     <div className="App">
@@ -273,7 +318,7 @@ function handleCreatingBidState(newBid) {
         <Route path='/bids' element={<CurrentUserBids />} />
         <Route path='/products-page' element={<ProductsPage onHandleSearchCall={onHandleSearchCall}/>} />
         <Route path='/product/new' element={<NewProductForm onHandleCreateProduct={onHandleCreateProduct}/>} />
-    <Route path='/product/:id' element={<ViewProduct onHandelCreatingNewComment={onHandelCreatingNewComment} onHandleUpdatingComment={onHandleUpdatingComment} onHandleDelete={onHandleDelete} onHandleUpdatingBid={onHandleUpdatingBid} onHandleCreateBid={onHandleCreateBid}/>}/>
+    <Route path='/product/:id' element={<ViewProduct onHandelCreatingNewComment={onHandelCreatingNewComment} onHandleUpdatingComment={onHandleUpdatingComment} onHandleDelete={onHandleDelete} onHandleUpdatingBid={onHandleUpdatingBid} onHandleCreateBid={onHandleCreateBid} onHandleUpdatingWinningBid={onHandleUpdatingWinningBid} onHandleUpdatingNonWinner={onHandleUpdatingNonWinner}/> }/>
       </Routes>
     </div>
   );
