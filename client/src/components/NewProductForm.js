@@ -15,46 +15,34 @@ function NewProductForm({onHandleCreateProduct}) {
     }
 
     return (
-        <div>
-            <h1>File Form</h1>
+        <div className="fileForm">
+            <h1>List Something</h1>
+            <div className="createProduct">
             <form onSubmit={e => handleFormSubmit(e)}>
-                {/* <label htmlFor="description"> Description</label>
-                <input type='text' name='description' id='description'></input>
-                <br />
-
-                <label htmlFor="minimum_price">Minimum Price</label>
-                <input type='text' name="minimum_price" id='minimum_price'></input>
-                <br />
-
-                <label htmlFor="image">Product Image</label>
-                <input type='file' name="image" id='image'></input>
-                <br /> */}
-                <label>Product Name
+                <label>Product Name:
                     <input
                     type='text'
                     value={productName}
                     onChange={e => setProductName(e.target.value)}
                     ></input>
                 </label>
-                <br/>
-                <label> Descripition
+                <label> Descripition:
                     <input
                     type='text'
                     value={description}
                     onChange={e => setDescription(e.target.value)}
                     ></input>
                 </label>
-                <br />
-                <label>Image
+                <label>Image:
                     <input
                     type='file'
                     // value={image}
                     onChange={e => setImage(e.target.files[0])}
                     ></input>
                 </label>
-                <br />
                 <input type='submit'></input>
             </form>
+            </div>
         </div>
     )
 }
