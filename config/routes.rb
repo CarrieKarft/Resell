@@ -1,16 +1,15 @@
 Rails.application.routes.draw do
-  # namespace :api do
-    resources :bids
-    resources :comments
-    resources :products
-    resources :users, except: [:show, :create]
+
+    resources :bids, only: [:create, :update]
     patch '/accept_bid/:id', to: "bids#accept_bid"
-    get '/search-products/:product_name', to: "products#search_products"
+    resources :comments, only: [:create, :update, :destroy]
+    resources :products, only: [:show, :index, :create, :destroy]
+    resources :users, only: [:index]
     post '/signup', to: "users#create"
     get '/me', to: "users#show"
     delete '/logout', to: "sessions#destroy"
     post '/login', to: "sessions#create"
-  # end
+
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
