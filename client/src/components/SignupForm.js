@@ -14,47 +14,46 @@ function SignupForm({handleUserSignupFetch}) {
             password,
             password_confirmation: passwordConfirmation
         }
-        // console.log(newUserObj)
 
         handleUserSignupFetch(newUserObj)
     }
 
     return (
-        <div>
-            <h1>SignupForm</h1>
+        <div className='SignupForm'>
+            <h1>Signup</h1>
             <form onSubmit={e => handleSignupSubmit(e)}>
-                <lable> Username:
+                <label> Username:
                     <input
                     type='text'
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                     >
                     </input>
-                </lable>
-                <lable> Password:
+                </label>
+                <label> Password:
                     <input
                     type='password'
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     >
                     </input>
-                </lable>
-                <lable> Password Confirmation:
+                </label>
+                <label> Password Confirmation:
                     <input
                     type='password'
                     value={passwordConfirmation}
                     onChange={e => setPasswordConfirmation(e.target.value)}
                     >
                     </input>
-                </lable>
-                <lable> Email:
+                </label>
+                <label> Email:
                     <input
                     type='text'
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     >
                     </input>
-                </lable>
+                </label>
                 <input type='submit'></input>
                 
             </form>
