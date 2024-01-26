@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 function CreateBidForm({product_id, onHandleCreateBid, setCreateClicked}) {
     console.log(product_id)
-    const [bidAmount, setBidAmount] = useState("Enter bid")
+    const [bidAmount, setBidAmount] = useState()
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -19,6 +19,7 @@ function CreateBidForm({product_id, onHandleCreateBid, setCreateClicked}) {
                 <label>
                     <input
                     type='text'
+                    placeholder="Enter bid"
                     value={bidAmount}
                     onChange={e => setBidAmount(e.target.value)}
                     >
