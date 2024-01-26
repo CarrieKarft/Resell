@@ -3,5 +3,4 @@ class ProductSerializer < ActiveModel::Serializer
 
 
   has_many :comments
-  # has_many :bids
 end
