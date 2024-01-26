@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 function UpdateBidForm({checkingForPreviousBid, onHandleUpdatingBid, setUpdateClicked}) {
     // console.log(checkingForPreviousBid)
-    const [bidAmount, setBidAmount] = useState("Enter amount")
+    const [bidAmount, setBidAmount] = useState()
 
     function handelSubmit(e) {
         e.preventDefault()
@@ -21,6 +21,7 @@ function UpdateBidForm({checkingForPreviousBid, onHandleUpdatingBid, setUpdateCl
                 <label>
                     <input
                     type='text'
+                    placeholder="Enter amount"
                     value={bidAmount}
                     onChange={e => setBidAmount(e.target.value)}
                     >
