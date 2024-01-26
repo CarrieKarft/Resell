@@ -18,7 +18,10 @@ useEffect(() => {
             })
             .then(r => {
                 if(r.ok) {
-                  r.json().then((winningBid) => onHandleUpdatingWinningBid(winningBid))
+                  r.json().then((winningBid) => {
+                    onHandleUpdatingWinningBid(winningBid)
+                    console.log(winningBid)
+                })
                 } else {
                   r.json().then(errorData => alert(errorData.error))
                 }
@@ -29,7 +32,7 @@ useEffect(() => {
     }, 120000);
 
     return () => clearTimeout(timeoutId);
-  }, [])
+  }, [current_highest_bid])
 
     return (
         <div>
