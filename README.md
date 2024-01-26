@@ -4,12 +4,16 @@
 
   PLEASE NOTE: Currently, the time that a product is available to be bid on is handled by a setTimeout function. This is set to perform an action to either determine a winning bid or delete the product after two minutes so that the app can be presented.
 
+  This application is currently deployed. You can see it at: https://resell-6o8b.onrender.com/products-page
+
 ## Features 
   This application uses cokkies and sessions to store, and send user data for user authentication and authorization. 
 
   The application utilizes AWS S# cloud storage, and ActiveStorage.
 
   This application utilizeds BCrypt to encrypt user data within a relational database
+
+  This application was deployed using Render
 
 ## Tools
 
