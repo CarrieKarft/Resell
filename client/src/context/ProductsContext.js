@@ -5,6 +5,7 @@ const ProductsContext = createContext();
 function ProductsProvider({ children }) {
     const [products, setProducts] = useState([])
 
+
     useEffect(() => {
       fetch('/products')
       .then((r) => {
