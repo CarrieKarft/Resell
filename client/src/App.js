@@ -79,14 +79,12 @@ function App() {
   }
 
   function handleNewProductState(newProductData) {
-    // console.log(newProductData.image_url)
     const addingNewProduct = [...products, newProductData]
     setProducts(addingNewProduct)
     navigate('/products-page')
   }
 
   function onHandelCreatingNewComment(newCommentObj) {
-    // console.log(newCommentObj)
     fetch('/comments', {
       method: "POST",
       headers: {
@@ -103,7 +101,6 @@ function App() {
   }
 
   function handleUpdatingCommentState(newCommentData) {
-    // console.log(newCommentData)
     const findingProduct = products.find(prod => prod.id === newCommentData.product_id)
     const updatingProdComments = [...findingProduct.comments, newCommentData]
     const updatingProd = {...findingProduct, comments: updatingProdComments}
@@ -113,8 +110,6 @@ function App() {
   }
 
   function onHandleUpdatingComment(comment, id) {
-    // console.log(comment)
-    // console.log(id)
     fetch(`/comments/${id}`,  {
       method: "PATCH",
       headers: {
@@ -177,8 +172,6 @@ function App() {
   }
 
   function handleUpdatingBidState(updatedbid) {
-    console.log(updatedbid)
-    // need to update prod.highest bid
     console.log(products)
     const findProduct = products.find(prod => updatedbid.product_id === prod.id);
     findProduct.current_highest_bid = updatedbid;
@@ -186,12 +179,10 @@ function App() {
     console.log(updatingProducts)
     setProducts(updatingProducts)
     console.log(currentUser)
-    // need to update currentUser.bids
     const replacingUserBid = currentUser.bids.map(bid => bid.id === updatedbid.id ? updatedbid : bid)
 
     const findinUserProduct = currentUser.products.find(prod => updatedbid.product_id === prod.id);
     findinUserProduct.current_highest_bid = updatedbid;
-    // findinUserProduct.current_highest_bid.bid_amount = updatedbid.bid_amount;
     const replacingProductForUser = currentUser.products.map(prod => prod.id === findinUserProduct.id ? findinUserProduct : prod)
     const newCurrentUser = {...currentUser, products: replacingProductForUser, bids: replacingUserBid}
     console.log(newCurrentUser)
@@ -221,7 +212,6 @@ function handleCreatingBidState(newBid) {
   console.log(newBid)
   console.log("1", products)
   const findProduct = products.find(prod => prod.id === newBid.product_id);
-  // findProduct.highest_bid = newBid.bid_amount;
   findProduct.current_highest_bid = newBid;
   const replacingProduct = products.map(prod => prod.id === findProduct.id ? findProduct : prod);
   console.log("2", replacingProduct)
@@ -230,18 +220,14 @@ function handleCreatingBidState(newBid) {
  console.log("1", currentUser)
   const addBidToBids = [...currentUser.bids, newBid];
 
-  // update current user products highest bid
-  // find product
   const findUserProduct = currentUser.products.find(prod => prod.id === newBid.product_id)
   console.log(findUserProduct)
   if (!findUserProduct) {
     const {comments, ...notComments} = findProduct
     const addingProductToUser = [...currentUser.products, notComments];
     const newCurrentUser1 = {...currentUser, bids: addBidToBids, products: addingProductToUser};
-    // for some reason setCurrent user is not triggering a statchange and component rerender untill page is left
     console.log(newCurrentUser1)
     setCurrentUser(() => newCurrentUser1)
-    // setCurrentUser((currentUser) => {...currentUser, bids: addBidToBids, products: addingProductToUser})
   } else {
   findUserProduct.current_highest_bid = newBid
   const replacingUserProducts = currentUser.products.map(prod => prod.id === findUserProduct.id ? findUserProduct : prod)
@@ -249,7 +235,6 @@ function handleCreatingBidState(newBid) {
   console.log("2", newCurrentUser)
   setCurrentUser(newCurrentUser)
   }
-  // This doesnt have bid
   console.log("should have bid", currentUser)
 }
 
@@ -263,17 +248,10 @@ function onHandleUpdatingWinningBid(winningBid) {
   setCurrentUser(updatingUser)
   console.log(currentUser)
 
-  // fix product state 
-  // find product
   const findProdut = products.find(prod => prod.id === winningBid.product_id)
-  // set current_highest_bid to winning bid
   findProdut.current_highest_bid = winningBid
-  // replace products
   const replaceProducts = products.map(prod => prod.id === findProdut.id ? findProdut : prod)
-  // console.log("products bids", findProdut)
-  // set in state
   setProducts(replaceProducts)
-  // console.log(products)
 }
 
 function onHandleUpdatingNonWinner(findProduct) {
@@ -304,7 +282,7 @@ function handleRemovingProduct(findingProduct) {
         <Route path='/' element={<AboutPage />} />
         <Route path='/profile' element={<UserProfile onHandleLogout={onHandleLogout}/>} />
         <Route path='/bids' element={<CurrentUserBids />} />
-        <Route path='/products-page' element={<ProductsPage/>} />
+        <Route path='/products-page' element={<ProductsPage />} />
         <Route path='/product/new' element={<NewProductForm onHandleCreateProduct={onHandleCreateProduct}/>} />
     <Route path='/product/:id' element={<ViewProduct onHandelCreatingNewComment={onHandelCreatingNewComment} onHandleUpdatingComment={onHandleUpdatingComment} onHandleDelete={onHandleDelete} onHandleUpdatingBid={onHandleUpdatingBid} onHandleCreateBid={onHandleCreateBid} onHandleUpdatingWinningBid={onHandleUpdatingWinningBid} onHandleUpdatingNonWinner={onHandleUpdatingNonWinner}/> }/>
       </Routes>
