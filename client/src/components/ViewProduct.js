@@ -15,9 +15,8 @@ function ViewProduct({onHandelCreatingNewComment, onHandleUpdatingComment, onHan
     const findProduct = products.find(prod => prod.id == id)
     if (!findProduct) return <h2>Loading...</h2>
     if (!currentUser.bids) return <h2>Loading...</h2>
-    const {image_url, comments, current_highest_bid, product_name, description} = findProduct
-    console.log(current_highest_bid)
-// this line is taking a while to load? how can I make it faster?
+    const {image_url, comments, current_highest_bid, product_name, description, user_id} = findProduct
+
     const checkingForPreviousBid = currentUser.bids.find(bid => bid.product_id === findProduct.id)
 
     const mappingComments = comments.map(comm => <Comment key={comm.id} comm={comm} onHandleUpdatingComment={onHandleUpdatingComment} onHandleDelete={onHandleDelete}/>)
@@ -33,7 +32,11 @@ function ViewProduct({onHandelCreatingNewComment, onHandleUpdatingComment, onHan
                     <BidTimer current_highest_bid={current_highest_bid} findProduct={findProduct} onHandleUpdatingWinningBid={onHandleUpdatingWinningBid} onHandleUpdatingNonWinner={onHandleUpdatingNonWinner}/>
                 </div>
                 <div >
-                {current_highest_bid.bid_accepted === true ? <h3>You can no longer bid on this item</h3> : <Bid checkingForPreviousBid={checkingForPreviousBid} current_highest_bid={current_highest_bid} onHandleUpdatingBid={onHandleUpdatingBid} product_id={id} onHandleCreateBid={onHandleCreateBid}/>}
+                {user_id !== currentUser.id ? (current_highest_bid.bid_accepted === true ? <h3>You can no longer bid on this item</h3> : <Bid checkingForPreviousBid={checkingForPreviousBid} current_highest_bid={current_highest_bid} onHandleUpdatingBid={onHandleUpdatingBid} product_id={id} onHandleCreateBid={onHandleCreateBid}/>) : <h3>You are not able to bid on your own items</h3>}
+
+                {/* condition1 ?(condition2 ? Expression1 : Expression2) : Expression3; */}
+
+    
                 </div>
             </div>
             <div className="bottomHalf">
