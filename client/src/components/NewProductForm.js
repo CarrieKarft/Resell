@@ -11,6 +11,7 @@ function NewProductForm({onHandleCreateProduct}) {
         data.append("image", image)
         data.append("product_name", productName)
 
+
         onHandleCreateProduct(data)
     }
 
