@@ -5,6 +5,7 @@ class User < ApplicationRecord
     validates :password, :email, :username, presence: true
     validates :email, uniqueness: true
 
+    has_many :posts, class_name: 'Product'
     has_many :bids
     has_many :comments
     has_many :products, through: :bids
