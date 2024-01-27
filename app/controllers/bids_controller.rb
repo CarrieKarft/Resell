@@ -4,6 +4,7 @@ class BidsController < ApplicationController
     def create
         user = find_user
         product = Product.find(params[:product_id])
+        # add && product.user_id != user.id to make sure user cannot bid on own item?
         if product.current_highest_bid[:bid_amount] < params[:bid_amount].to_f
             bid = user.bids.create!(bid_params)
             bid.update!(bid_accepted: false)
