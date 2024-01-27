@@ -14,7 +14,7 @@ class Product < ApplicationRecord
         if self.bids.length > 0
             self.bids.find_by(bid_amount: self.bids.maximum(:bid_amount))
         else
-            {bid_amount: 0.00}
+            {bid_amount: 0.00, bid_accepted: false}
         end
     end
 end
