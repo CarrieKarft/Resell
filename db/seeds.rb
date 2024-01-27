@@ -11,8 +11,13 @@ User.create({username: 'ckraft', password: 'ckraft', password_confirmation: 'ckr
 User.create({username: 'ekraft', password: 'ekraft', password_confirmation: 'ekraft', email: 'carriekarft@gmail.com'})
 User.create({username: 'dougie', password: 'dougie', password_confirmation: 'dougie', email: 'dtownsend33@gmail.com'})
 
-10.times do 
-    Product.create({ product_name: Faker::Commerce.product_name,description: Faker::Lorem.paragraphs})
+User.all.each do |user|
+    10.times do 
+        new_product = user.posts.create({product_name: Faker::Commerce.product_name, description: Faker::Lorem.paragraphs})
+
+        new_product.image.attach( io: File.open(Rails.root.join('./db/images/clothing.PNG')),
+        filename: 'clothing.PNG')
+    end
 end
 
 User.all.each do |user|
@@ -26,6 +31,14 @@ User.all.each do |user|
         user.bids.create({product_id: rand(1..10), bid_amount: rand(10.00..60.99).round(2), bid_accepted: false})
     end
 end
+
+# new_post = Post.create(
+#     title: "Test Post",
+#     description: "This is the most exciting post ever posted."
+# )
+
+# new_post.images.attach( io: File.open(Rails.root.join('db/images/NAME_OF_YOUR_FILE.jpeg')),
+# filename: 'NAME_OF_YOUR_FILE.jpeg')
 
 
 
