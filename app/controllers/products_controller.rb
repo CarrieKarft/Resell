@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-    skip_before_action :authorize
+    skip_before_action :authorize, except: [:create]
 
     def show
         product = Product.find(params[:id])
@@ -12,7 +12,9 @@ class ProductsController < ApplicationController
     end
 
     def create
-        product = Product.create!(product_params)
+        user = find_user
+        product = user.posts.create(product_params)
+        # product = Product.create!(product_params)
         render json: product, status: :created
     end
 
