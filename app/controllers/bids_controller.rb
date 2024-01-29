@@ -1,10 +1,9 @@
 class BidsController < ApplicationController
 
-    # user can place a bid on a product
     def create
         user = find_user
         product = Product.find(params[:product_id])
-        # add && product.user_id != user.id to make sure user cannot bid on own item?
+        # add && product.user_id != user.id to make sure user cannot bid on own item? seperate if statement
         if product.current_highest_bid[:bid_amount] < params[:bid_amount].to_f
             bid = user.bids.create!(bid_params)
             bid.update!(bid_accepted: false)
@@ -14,15 +13,6 @@ class BidsController < ApplicationController
         end
     end
 
-    # maybe fix so that winning bids uses this instead of handeling finding winning bids in the frontedn
-# not using
-    # def index
-    #     user = find_user
-    #     bids = user.bids
-    #     render json: bids, status: 200
-    # end
-
-    # user can update a bid amount to higher value
     def update
         user = find_user
         bid = user.bids.find(params[:id])
