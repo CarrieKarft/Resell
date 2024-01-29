@@ -22,5 +22,4 @@ class ApplicationController < ActionController::API
   def invalid(exception)
     return render json: {errors: exception.record.errors.full_messages}, status: 422
   end
-
 end
