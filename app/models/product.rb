@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
     validates :description, :product_name, :image, presence: true
 
-    has_many :bids
+    has_many :bids, dependent: :destroy
     has_many :comments, dependent: :destroy
     has_many :users, through: :bids
     has_one_attached :image
