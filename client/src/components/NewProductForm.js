@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 function NewProductForm({onHandleCreateProduct}) {
     const [description, setDescription] = useState('')
-    const [image, setImage] = useState('')
+    const [image, setImage] = useState()
     const [productName, setProductName] = useState('')
     function handleFormSubmit(e) {
         e.preventDefault()
@@ -11,7 +11,7 @@ function NewProductForm({onHandleCreateProduct}) {
         data.append("image", image)
         data.append("product_name", productName)
 
-
+        if(!image) return alert("There needs to be an image file attached")
         onHandleCreateProduct(data)
     }
 
@@ -27,7 +27,7 @@ function NewProductForm({onHandleCreateProduct}) {
                     onChange={e => setProductName(e.target.value)}
                     ></input>
                 </label>
-                <label> Descripition:
+                <label> Description:
                     <input
                     type='text'
                     value={description}
