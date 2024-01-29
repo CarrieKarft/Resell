@@ -4,6 +4,7 @@ class User < ApplicationRecord
     validates :password, confirmation: true
     validates :password, :email, :username, presence: true
     validates :email, uniqueness: true
+    validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, on: :create }
 
     has_many :posts, class_name: 'Product'
     has_many :bids
