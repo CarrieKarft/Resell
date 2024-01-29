@@ -73,7 +73,7 @@ function App() {
       if(r.ok) {
           r.json().then((newProductData) => handleNewProductState(newProductData))
       } else {
-          r.json().catch((errorData) => alert(errorData.errors))
+          r.json().then((errorData) => alert(errorData.errors))
       }
   })
   }
