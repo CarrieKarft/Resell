@@ -10,6 +10,7 @@ import CurrentUserBids from './components/CurrentUserBids';
 import ViewProduct from './components/ViewProduct';
 import UserProfile from './components/UserProfile';
 import AboutPage from './components/AboutPage';
+import UserProducts from './components/UserProducts';
 
 
 
@@ -273,6 +274,50 @@ function handleRemovingProduct(findingProduct) {
   navigate('/products-page')
 }
 
+function onHandleUpdateProduct(data, id) {
+  fetch(`/products/${id}`, {
+    method: "PATCH",
+    body: data
+  })
+  .then((r) => {
+    if(r.ok) {
+        r.json().then((updatedProductData) => handleUpdateProductState(updatedProductData))
+    } else {
+        r.json().then((errorData) => alert(errorData.errors))
+    }
+  })
+}
+console.log(products)
+function handleUpdateProductState(updatedProductData) {
+  const updateProduct = products.map(prod => prod.id === updatedProductData.id ? updatedProductData : prod)
+  setProducts(updateProduct)
+  console.log(products)
+
+}
+
+function onHandleProductDelete(id) {
+  console.log(id)
+  fetch(`/user_product_delete/${id}`, {
+    method: "DELETE",
+  })
+  .then(r => {
+    if(r.ok) {
+      r.json().then(() => handleRemovingUserProduct(id))
+    } else {
+      r.json().then(errorData => alert(errorData.error))
+    }
+  })
+}
+
+function handleRemovingUserProduct(id) {
+  // filer out produt from products
+  console.log(products)
+  const filteringOutProduct = products.filter(prod => prod.id !== id)
+  // set products state
+  setProducts(filteringOutProduct)
+  
+}
+
  
 
   return (
@@ -281,6 +326,7 @@ function handleRemovingProduct(findingProduct) {
       <Routes>
         <Route path='/' element={<AboutPage />} />
         <Route path='/profile' element={<UserProfile onHandleLogout={onHandleLogout}/>} />
+        <Route path='/user-products' element={<UserProducts onHandleUpdateProduct={onHandleUpdateProduct} onHandleProductDelete={onHandleProductDelete}/>}/>
         <Route path='/bids' element={<CurrentUserBids />} />
         <Route path='/products-page' element={<ProductsPage />} />
         <Route path='/product/new' element={<NewProductForm onHandleCreateProduct={onHandleCreateProduct}/>} />
