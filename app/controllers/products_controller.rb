@@ -13,8 +13,7 @@ class ProductsController < ApplicationController
 
     def create
         user = find_user
-        product = user.posts.create(product_params)
-        # product = Product.create!(product_params)
+        product = user.posts.create!(product_params)
         render json: product, status: :created
     end
 
