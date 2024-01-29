@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-    validates :description, presence: true
+    validates :description, :product_name, :image, presence: true
 
     has_many :bids
     has_many :comments, dependent: :destroy
