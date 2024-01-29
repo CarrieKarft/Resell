@@ -16,7 +16,6 @@ function ViewProduct({onHandelCreatingNewComment, onHandleUpdatingComment, onHan
     if (!findProduct) return <h2>Loading...</h2>
     if (!currentUser.bids) return <h2>Loading...</h2>
     const {image_url, comments, current_highest_bid, product_name, description, user_id} = findProduct
-
     const checkingForPreviousBid = currentUser.bids.find(bid => bid.product_id === findProduct.id)
 
     const mappingComments = comments.map(comm => <Comment key={comm.id} comm={comm} onHandleUpdatingComment={onHandleUpdatingComment} onHandleDelete={onHandleDelete}/>)
