@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
 puts "seeding..."
 
 User.create({username: 'ckraft', password: 'ckraft', password_confirmation: 'ckraft', email: 'ctownsend33@gmail.com'})
@@ -12,7 +14,7 @@ User.create({username: 'ekraft', password: 'ekraft', password_confirmation: 'ekr
 User.create({username: 'dougie', password: 'dougie', password_confirmation: 'dougie', email: 'dtownsend33@gmail.com'})
 
 User.all.each do |user|
-    10.times do 
+    5.times do 
         new_product = user.posts.create({product_name: Faker::Commerce.product_name, description: Faker::Lorem.paragraphs})
 
         new_product.image.attach( io: File.open(Rails.root.join('./db/images/clothing.PNG')),
@@ -22,23 +24,17 @@ end
 
 User.all.each do |user|
     rand(1..4).times do
-        user.comments.create({product_id: rand(1..10), comment: Faker::Lorem.sentence})
+        user.comments.create({product_id: rand(1..5), comment: Faker::Lorem.sentence})
     end
 end
 
+# need to change method so that product id cannot have user id
 User.all.each do |user|
     rand(1..4).times do
-        user.bids.create({product_id: rand(1..10), bid_amount: rand(10.00..60.99).round(2), bid_accepted: false})
+        user.bids.create({product_id: rand(1..5), bid_amount: rand(10.00..60.99).round(2), bid_accepted: false})
     end
 end
 
-# new_post = Post.create(
-#     title: "Test Post",
-#     description: "This is the most exciting post ever posted."
-# )
-
-# new_post.images.attach( io: File.open(Rails.root.join('db/images/NAME_OF_YOUR_FILE.jpeg')),
-# filename: 'NAME_OF_YOUR_FILE.jpeg')
 
 
 
