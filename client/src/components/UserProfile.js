@@ -1,4 +1,5 @@
 import React, {useContext} from "react";
+import { NavLink } from "react-router-dom";
 import { CurrentUserContext } from '../context/CurrentUserContext'
 import ProductCard from "./ProductCard";
 
@@ -23,7 +24,10 @@ function UserProfile({onHandleLogout}) {
     return (
         <div className="profile">
             <h1>User Profile</h1>
+            <div className="buttons">
+                <NavLink to='/user-products'><button>View Products You've Created</button></NavLink>
             <button onClick={() => onHandleLogout()}>Logout</button>
+            </div>
             <h2>Hello, {username}</h2>
             {gettingProducts}
         </div>
