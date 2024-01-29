@@ -33,8 +33,6 @@ function ViewProduct({onHandelCreatingNewComment, onHandleUpdatingComment, onHan
                 <div >
                 {user_id !== currentUser.id ? (current_highest_bid.bid_accepted === true ? <h3>You can no longer bid on this item</h3> : <Bid checkingForPreviousBid={checkingForPreviousBid} current_highest_bid={current_highest_bid} onHandleUpdatingBid={onHandleUpdatingBid} product_id={id} onHandleCreateBid={onHandleCreateBid}/>) : <h3>You are not able to bid on your own items</h3>}
 
-                {/* condition1 ?(condition2 ? Expression1 : Expression2) : Expression3; */}
-
     
                 </div>
             </div>
