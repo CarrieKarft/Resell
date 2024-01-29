@@ -8,12 +8,9 @@ function UserProducts({onHandleUpdateProduct, onHandleProductDelete}) {
     const {products} = useContext(ProductsContext);
     const {currentUser} = useContext(CurrentUserContext);
 
-    // const findUserProducts = products.filter(prod => prod.user_id === currentUser.id).map(prod => {
-    //     return <UserProductCard key={prod.id} prod={prod} onHandleUpdateProduct={onHandleUpdateProduct} onHandleProductDelete={onHandleProductDelete}/>
-    // })
-    const findUserProducts = products.map(prod => {
-            return <UserProductCard key={prod.id} prod={prod} onHandleUpdateProduct={onHandleUpdateProduct} onHandleProductDelete={onHandleProductDelete}/>
-        })
+    const findUserProducts = products.filter(prod => prod.user_id === currentUser.id).map(prod => {
+        return <UserProductCard key={prod.id} prod={prod} onHandleUpdateProduct={onHandleUpdateProduct} onHandleProductDelete={onHandleProductDelete}/>
+    })
 
     console.log(findUserProducts)
     return (
