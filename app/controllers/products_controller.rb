@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-    skip_before_action :authorize, except: [:create, :update]
+    skip_before_action :authorize, except: [:create, :update, :user_product_delete]
 
     def show
         product = Product.find(params[:id])
@@ -25,9 +25,9 @@ class ProductsController < ApplicationController
 
     # second delete method to have one that authorizes that user can delete the product
     def user_product_delete
-        # user = find_user
-        # product = user.posts.find(params[:id])
-        product = Product.find(params[:id])
+        user = find_user
+        product = user.posts.find(params[:id])
+        # product = Product.find(params[:id])
         product.delete
         render json: {}
     end
