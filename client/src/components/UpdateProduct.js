@@ -2,7 +2,6 @@ import React, {useState} from "react";
 
 function UpdateProduct({prod, onHandleUpdateProduct, setSelected}) {
     const [description, setDescription] = useState(prod.description)
-    const [image, setImage] = useState()
     const [productName, setProductName] = useState(prod.product_name)
 
     const {id} = prod
@@ -12,13 +11,17 @@ function UpdateProduct({prod, onHandleUpdateProduct, setSelected}) {
         const data = new FormData();
 
         data.append("description", description);
-        data.append("image", image)
         data.append("product_name", productName)
 
-        if(!image) return alert("There needs to be an image file attached")
         onHandleUpdateProduct(data, id)
         setSelected(false)
 
+    }
+
+    function cancleEdit() {
+        setSelected(false)
+        setDescription(prod.description)
+        setProductName(prod.product_name)
     }
     return (
         <div className="comment">
@@ -40,15 +43,9 @@ function UpdateProduct({prod, onHandleUpdateProduct, setSelected}) {
                     ></input>
                 </label>
                 <br/>
-                <label>Image:
-                    <input
-                    type='file'
-                    onChange={e => setImage(e.target.files[0])}
-                    ></input>
-                </label>
-                <br/>
                 <input type='submit'></input>
             </form>
+            <button onClick={() => cancleEdit()}>Cancel Edit</button>
             </div>
         </div>
     )
